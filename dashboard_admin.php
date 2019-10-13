@@ -251,7 +251,6 @@
             },
             success:function(response){
               var json_obj = $.parseJSON(response);
-              console.log(json_obj.otp);
               if(json_obj.otp == enter_otp)
               {
                  document.getElementById('verify1').disabled=true;
@@ -267,26 +266,26 @@
                 
                 if (! window.focus)return true;
                 var href;
-                var mylink = 'report.php?id='+document.getElementById('room_id1').value + '&indate='+ $('#date3').val() + '&outdate='+ $('#date4').val();
+                var mylink = 'report.php?id='+document.getElementById('room_id1').value + '&indate='+ $('#date3').val() + '&outdate='+ ($('#date4').val());
                 if (typeof(mylink) == 'string')
                 href=mylink;
                 else
                 href=mylink.href;
                 window.open(href, "_blank", 'width=1920, height=1080');
                 
-                setTimeout(function(){
-                     $.ajax({
-                      type: "POST",
-                      url: "release.php",
-                      data: {
-                        "room_id1":document.getElementById('room_id1').value,
-                        "session":<?php echo json_encode($_SESSION['admin']); ?>,
-                      },
-                      success:function(response){
-                        window.location='dashboard_admin.php';
-                      }
-                    }); 
-                },2000);
+                // setTimeout(function(){
+                //      $.ajax({
+                //       type: "POST",
+                //       url: "release.php",
+                //       data: {
+                //         "room_id1":document.getElementById('room_id1').value,
+                //         "session":<?php echo json_encode($_SESSION['admin']); ?>,
+                //       },
+                //       success:function(response){
+                //         window.location='dashboard_admin.php';
+                //       }
+                //     }); 
+                // },2000);
               
                 return false;
               }
@@ -341,17 +340,14 @@ var check = function()
    }
 }
 
-function loadSelect(id,price_arg) {
+function loadSelect(id, price_arg) {
   var component = '#'+ id;
   var price = price_arg.toString();
+  const loop = price.length / 4;
   
-  var double_plus = price.substring(0,4);
-  var double = price.substring(4,8);
-  var single = price.substring(8,12);
-  
-  $(component).append("<option>"+ single +"</option>");
-  $(component).append("<option>"+ double +"</option>");
-  $(component).append("<option>"+ double_plus +"</option>");
+  for (let i = 0; i < loop; i++) {
+    $(component).append("<option>"+ price.substring(0 + (i*4), 4 + (i*4)) +"</option>");
+  }
 }
 
 
@@ -458,8 +454,6 @@ function loadSelect(id,price_arg) {
       </div>
       <div class="card card-body">
       <table class="table table-hover">
-
-
         <tr><div><td>Room Type  </td><td><?php echo $row['type']; ?></td></div>
         </tr>
 
@@ -477,20 +471,12 @@ function loadSelect(id,price_arg) {
           </tr>
 
          <?php 
-          if($row['status']==1)
-          {
-              
+          if ($row['status']==1) {    
             echo "<tr><div class=''><td>Booked by</td><td>".$row['bookedby']."</td></div></tr>";
             ?>
-           
             <?php
-          }
-          else
-          {
-            
+          } else {
             echo "<tr style='background-color:#77cc6d; color:white'><td>Available </td><td>Yes</td></tr>";
-          //  echo "<tr><div class=''><td>Out-time</td><td>".$row['out_time']."</td></div></tr>";
-            //echo "<small class='mt-2 text-danger'>book another room</small>";
           }
         ?>
       </table>
@@ -644,7 +630,7 @@ function loadSelect(id,price_arg) {
 
             <label>In Date </label>
             <div class="form-group"> 
-                  <input type="datetime-local" value="" class="form-control" placeholder="In Date" name="date1" id="date1" required="" onchange="change()"> 
+                  <input type="date" value="" class="form-control" placeholder="In Date" name="date1" id="date1" required="" onchange="change()"> 
               </div> 
              <label>Out Date(Tentative)</label>
               <div class="form-group"> 
@@ -710,11 +696,10 @@ function loadSelect(id,price_arg) {
             <div id="otp1" style="display: none">
                 
                 <div class="row mt-2">
-                    <div class="col">
-                    
+                    <div class="col"  style="display:none">
                           <label>In Date </label>
                             <div class="form-group"> 
-                                  <input type="date" class="form-control" placeholder="In Date" name="date3" id="date3" required=""> 
+                                  <input type="date" class="form-control" placeholder="In Date" name="date3" id="date3" required="" disabled> 
                             </div> 
                     </div>
                 
@@ -801,17 +786,6 @@ function loadSelect(id,price_arg) {
       if($res > 0)
         echo "<script>alert('Booking Done Successfully'); window.location='dashboard_admin.php'</script>";
   }
-
-  // if(isset($_REQUEST['confirm1']))
-  // {
-  //   require_once('connection.php');
-  //   $id = $_REQUEST['room_id1'];
-  //   $con = mysqli_connect($host,$name,$pass,$db);
-  //   $sql = "update rooms set status='0',intime='',out_time='',guest_name='',bookedby='',booking_price='' where id='$id'";
-  //   $res = mysqli_query($con,$sql);
-
-  //   echo "<script>window.location='dashboard_admin.php'</script>";
-  // }
 
   if(isset($_REQUEST['btn_cp']))
   {

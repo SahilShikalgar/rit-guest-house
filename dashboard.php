@@ -225,14 +225,11 @@ var check = function()
 function loadSelect(id,price_arg) {
   var component = '#'+ id;
   var price = price_arg.toString();
+  const loop = price.length / 4;
   
-  var double_plus = price.substring(0,4);
-  var double = price.substring(4,8);
-  var single = price.substring(8,12);
-  
-  $(component).append("<option>"+ single +"</option>");
-  $(component).append("<option>"+ double +"</option>");
-  $(component).append("<option>"+ double_plus +"</option>");
+  for (let i = 0; i < loop; i++) {
+    $(component).append("<option>"+ price.substring(0 + (i*4), 4 + (i*4)) +"</option>");
+  }
 }
 
   </script>
