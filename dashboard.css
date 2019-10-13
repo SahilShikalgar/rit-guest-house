@@ -1,0 +1,48 @@
+		.dropdown-item:hover{
+			background-color: #DE6262;
+			color: white;
+		}
+		#drop:hover{
+			cursor: pointer;
+		}
+		.pass_show{position: relative} 
+
+		.pass_show .ptxt { 
+			position: absolute; top: 50%; right: 10px; z-index: 1; 
+			color: #f36c01; margin-top: -10px; cursor: pointer; 
+			transition: .3s ease all; 
+		} 
+
+		.pass_show .ptxt:hover{color: #333333;}
+
+		#myModal {
+		top:5%;
+		outline: none;
+		overflow:auto;
+		} 
+
+		#myModal2{
+			top:5%;
+			outline: none;
+			overflow:auto;
+		}
+
+		#myModal3{
+			top:5%;
+			outline: none;
+			overflow:auto;
+		}
+
+		.b{
+			background-color: #DE6262; color: white;
+		}
+
+		.b:hover{
+			background-color:  #dc3545;
+		}
+
+	.head
+    {
+      background-color: #C52B2B;
+      color: white;
+    }
