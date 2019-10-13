@@ -5,7 +5,7 @@
 		$email=$_POST['email'];
     $session=$_POST['session'];
 		require_once 'vendor/autoload.php';
-        require_once('connection.php');
+    require_once('connection.php');
 
          $transport = (new Swift_SmtpTransport('smtp.googlemail.com', 465, 'ssl'))
             ->setUsername('ritguesthouse@gmail.com')
