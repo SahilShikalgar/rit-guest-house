@@ -273,19 +273,19 @@
                 href=mylink.href;
                 window.open(href, "_blank", 'width=1920, height=1080');
                 
-                // setTimeout(function(){
-                //      $.ajax({
-                //       type: "POST",
-                //       url: "release.php",
-                //       data: {
-                //         "room_id1":document.getElementById('room_id1').value,
-                //         "session":<?php echo json_encode($_SESSION['admin']); ?>,
-                //       },
-                //       success:function(response){
-                //         window.location='dashboard_admin.php';
-                //       }
-                //     }); 
-                // },2000);
+                setTimeout(function(){
+                     $.ajax({
+                      type: "POST",
+                      url: "release.php",
+                      data: {
+                        "room_id1":document.getElementById('room_id1').value,
+                        "session":<?php echo json_encode($_SESSION['admin']); ?>,
+                      },
+                      success:function(response){
+                        window.location='dashboard_admin.php';
+                      }
+                    }); 
+                },2000);
               
                 return false;
               }
